@@ -32,7 +32,33 @@ app.post('/tasks', (req, res) => {
 });
 
 app.get('/tasks', (req, res) => {
-    res.json(tasks);
+    const { status } = req.query;
+
+    if (status === undefined) {
+        return res.json({
+		message:`${tasks.length} tasks found`,
+		tasks
+	});
+    };
+
+    if (status !== 'completed' && status !== 'uncompleted') {
+        return res.status(400).json({
+            message: 'incorrect status'
+        });
+    };
+
+    const filteredTasks = tasks.filter((task) => {
+        if (status === 'completed') {
+            return task.complete === true;
+        }
+
+        return task.complete === false;
+    });
+
+    res.json({
+		message: `${filteredTasks.length} ${status} tasks found`,
+		filteredTasks
+	});
 });
 
 app.put('/tasks/:id', (req, res) => {
