@@ -36,9 +36,9 @@ app.get('/tasks', (req, res) => {
 
     if (status === undefined) {
         return res.json({
-		message:`${tasks.length} tasks found`,
-		tasks
-	});
+            message: `${tasks.length} tasks found`,
+            tasks
+        });
     };
 
     if (status !== 'completed' && status !== 'uncompleted') {
@@ -56,9 +56,9 @@ app.get('/tasks', (req, res) => {
     });
 
     res.json({
-		message: `${filteredTasks.length} ${status} tasks found`,
-		filteredTasks
-	});
+        message: `${filteredTasks.length} ${status} tasks found`,
+        filteredTasks
+    });
 });
 
 app.put('/tasks/:id', (req, res) => {
